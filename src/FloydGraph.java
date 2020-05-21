@@ -9,6 +9,8 @@ public class FloydGraph<V> implements Graph<V> {
     private Integer[][] original;
     private V[][] interVertexes;
     private Class<V> type;
+    String leftAlignNFormat = "| %-10s ";
+    String leftAlignSFormat = "| %-15s ";
 
     public FloydGraph(Integer vertexCount, Integer edgeCount, Class<V> type) {
         this.vertexCount = vertexCount;
@@ -210,8 +212,9 @@ public class FloydGraph<V> implements Graph<V> {
 
     @Override
     public V[] showVertexes() {
+        System.out.format(leftAlignSFormat, "-----");
         for (int i = 0; i < vertexCount; i++) {
-            System.out.print(vertexes[i].toString() + "\t");
+            System.out.format(leftAlignSFormat, vertexes[i].toString().toUpperCase());
         }
         return vertexes;
     }
@@ -219,11 +222,14 @@ public class FloydGraph<V> implements Graph<V> {
     @Override
     public Integer[][] showOriginal() {
         for (int i = 0; i < vertexCount; i++) {
+            System.out.format(leftAlignSFormat, vertexes[i].toString().toUpperCase());
             for (int j = 0; j < vertexCount; j++) {
                 if (original[i][j] == Integer.MAX_VALUE) {
-                    System.out.print("inf\t");
+                    System.out.format(leftAlignSFormat, "inf");
+                    //System.out.print("inf\t");
                 } else {
-                    System.out.print(original[i][j] + "\t");
+                    System.out.format(leftAlignSFormat, original[i][j]);
+                    //System.out.print(original[i][j] + "\t");
                 }
             }
             System.out.println();
@@ -234,11 +240,14 @@ public class FloydGraph<V> implements Graph<V> {
     @Override
     public Integer[][] showGraph() {
         for (int i = 0; i < vertexCount; i++) {
+            System.out.format(leftAlignSFormat, vertexes[i].toString().toUpperCase());
             for (int j = 0; j < vertexCount; j++) {
                 if (edges[i][j] == Integer.MAX_VALUE) {
-                    System.out.print("inf\t");
+                    System.out.format(leftAlignSFormat, "inf");
+                    //System.out.print("inf\t");
                 } else {
-                    System.out.print(edges[i][j] + "\t");
+                    System.out.format(leftAlignSFormat, edges[i][j]);
+                    //System.out.print(edges[i][j] + "\t");
                 }
             }
             System.out.println();
@@ -249,11 +258,12 @@ public class FloydGraph<V> implements Graph<V> {
     @Override
     public V[][] showIntermediateVertex() {
         for (int i = 0; i < vertexCount; i++) {
+            System.out.format(leftAlignSFormat, vertexes[i].toString().toUpperCase());
             for (int j = 0; j < vertexCount; j++) {
                 if (i == j) {
-                    System.out.print("---\t\t\t");
+                    System.out.format(leftAlignSFormat, " ---- ");
                 } else {
-                    System.out.print(interVertexes[i][j] + "\t\t");
+                    System.out.format(leftAlignSFormat, interVertexes[i][j]);
                 }
             }
             System.out.println();
