@@ -85,7 +85,6 @@ public class Main {
 		 * Se cuenta la cantidad de ciudades para crear el grafo
 		 */
 		ArrayList<String> citiesCount = new ArrayList<>();
-		Integer routesCount = 0;
 		for (String relation : grafoTexto) {
 			String[] splitRelation = relation.split(" ");
 			if (!citiesCount.contains(splitRelation[0])) {
@@ -94,13 +93,12 @@ public class Main {
 			if (!citiesCount.contains(splitRelation[1])) {
 				citiesCount.add(splitRelation[1]);
 			}
-			routesCount++;
 		}
         /**
 		 * Estructuras de datos
 		 * Se crea el grafo para almacenar las ciudades del documento de texto
          */
-        Graph<City> graph = new FloydGraph<>(citiesCount.size(), routesCount, City.class);
+        Graph<City> graph = new FloydGraph<>(citiesCount.size(), City.class);
 		/**
 		 * Comienza la lectura de los elementos del archivo en la lista para ingresarlos
 		 * al grafo.
@@ -112,6 +110,9 @@ public class Main {
 			Integer distance = Integer.valueOf(splitRelation[2]);
 			graph.addEdge(sourceCity, targetCity, distance);
 		}
+		/**
+		 * Se hace el caluclo de las rutas mas cortas (inicial)
+		 */
 		graph.calculateNewEdges();
 		/**
 		 * Se agregan las palabras a la lista de oraciones tambien como asociaciones
@@ -119,12 +120,14 @@ public class Main {
 		boolean isCorrectParam = false;
 		int userOption = -1;
 		while (userOption != 5) {
+			// MENU
 			System.out.println("\nBienvenido al programa de calculo de rutas entre ciudades!\n"+
 			"1. Mostrar el valor de la ruta mas corta entre dos ciudades\n"+
 			"2. Modificar ruta (Edita, Crea y Elimina)\n"+
 			"3. Mostrar la ciudad central\n"+
 			"4. Ver matriz\n"+
 			"5. Salir");
+			// Try para evitar ingreso de letras
 			try {
 				userOption = scan.nextInt();
 			} catch (Exception e) {
@@ -137,6 +140,7 @@ public class Main {
 			isCorrectParam = false;
 			switch (userOption) {
 				case 1:
+					// Lee la ciudad de origen
 					while (!isCorrectParam) {
 						System.out.println("\nIngrese el nombre de la ciudad de origen");
 						sourceCity = new City(scan.nextLine());
@@ -146,6 +150,7 @@ public class Main {
 						}
 					}
 					isCorrectParam = false;
+					// Lee la ciudad de destino
 					while (!isCorrectParam) {
 						System.out.println("\nIngrese el nombre de la ciudad de destino");
 						targetCity = new City(scan.nextLine());
@@ -154,6 +159,7 @@ public class Main {
 							System.out.println("Ingrese una ciudad que se encuentre en el registro!");
 						}
 					}
+					// Muestra la distancia mas corta
 					System.out.println("\nLa distancia de " + sourceCity.getName() + " a " +
 					targetCity.getName() + " es:");
 					Integer resultDistance = graph.getEdge(sourceCity, targetCity);
@@ -162,10 +168,12 @@ public class Main {
 					} else {
 						System.out.println(resultDistance);
 					}
+					// Muestra las ciudades por las que se debe pasar
 					System.out.println("\nLas ciudades que debes cruzar son:");
 					graph.showEdges(sourceCity, targetCity);
 				break;
 				case 2:
+					// Recibe la ciudad de origen
 					while (!isCorrectParam) {
 						System.out.println("\nIngrese el nombre de la ciudad de origen");
 						sourceCity = new City(scan.nextLine());
@@ -174,6 +182,7 @@ public class Main {
 							System.out.println("Ingrese una ciudad que se encuentre en el registro!");
 						}
 					}
+					// Recibe la ciudad de desitno
 					isCorrectParam = false;
 					while (!isCorrectParam) {
 						System.out.println("\nIngrese el nombre de la ciudad de destino");
@@ -184,6 +193,7 @@ public class Main {
 						}
 					}
 					isCorrectParam = false;
+					// Recibe la nueva distancia entre las ciudades
 					while (!isCorrectParam) {
 						System.out.println("\nIngrese la nueva distancia entre las ciudades "+
 						"(Al ingresar 0 se borrara la ruta!)");
@@ -199,6 +209,7 @@ public class Main {
 							System.out.println("Ingrese un numero valido y mayor o igual a cero");
 						}
 					}
+					// Muestra la accion que se realizo
 					if (distance > 0) {
 						if (graph.getDirectEdge(sourceCity, targetCity) == Integer.MAX_VALUE) {
 							System.out.println("\nSe creo la ruta con distancia " + distance);
@@ -209,14 +220,17 @@ public class Main {
 					} else {
 						System.out.println("\nSe elimino la ruta!");
 					}
+					// Agrega la nueva ruta y recalcula las rutas mas cortas
 					graph.addEdge(sourceCity, targetCity, distance);
 					graph.calculateNewEdges();
 				break;
 				case 3:
+					// Muestra la ciudad que es el centro del grafo
 					System.out.println("\nLa ciudad central es:");
 					System.out.println(graph.getCenter().getName());
 				break;
 				case 4:
+					// Muestra las distintas matrices del grafo
 					System.out.println("Los nodos de la matriz son:");
 					graph.showVertexes();
 					System.out.println("\nLa matriz original es: ");
