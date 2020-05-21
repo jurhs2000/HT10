@@ -1,0 +1,22 @@
+#Ignorar configuraciones de eclipse
+.metadata
+.settings
+
+#Ignore this
+.idea
+out
+
+# Compiled class file
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Log file
+*.log
