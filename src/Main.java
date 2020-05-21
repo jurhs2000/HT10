@@ -122,7 +122,7 @@ public class Main {
 		while (userOption != 5) {
 			// MENU
 			System.out.println("\nBienvenido al programa de calculo de rutas entre ciudades!\n"+
-			"1. Mostrar el valor de la ruta mas corta entre dos ciudades\n"+
+			"1. Mostrar el valor de la ruta mas corta entre dos ciudades (Km)\n"+
 			"2. Modificar ruta (Edita, Crea y Elimina)\n"+
 			"3. Mostrar la ciudad central\n"+
 			"4. Ver matriz\n"+
@@ -166,7 +166,7 @@ public class Main {
 					if (resultDistance == Integer.MAX_VALUE) {
 						System.out.println("No hay paso entre estas ciudades.");
 					} else {
-						System.out.println(resultDistance);
+						System.out.println(resultDistance + " Km");
 					}
 					// Muestra las ciudades por las que se debe pasar
 					System.out.println("\nLas ciudades que debes cruzar son:");
@@ -195,7 +195,7 @@ public class Main {
 					isCorrectParam = false;
 					// Recibe la nueva distancia entre las ciudades
 					while (!isCorrectParam) {
-						System.out.println("\nIngrese la nueva distancia entre las ciudades "+
+						System.out.println("\nIngrese la nueva distancia entre las ciudades (Km) "+
 						"(Al ingresar 0 se borrara la ruta!)");
 						try {
 							distance = scan.nextInt();
@@ -212,10 +212,10 @@ public class Main {
 					// Muestra la accion que se realizo
 					if (distance > 0) {
 						if (graph.getDirectEdge(sourceCity, targetCity) == Integer.MAX_VALUE) {
-							System.out.println("\nSe creo la ruta con distancia " + distance);
+							System.out.println("\nSe creo la ruta con distancia " + distance + " Km");
 						} else {
 							System.out.println("\nSe cambio la distancia de la ruta de " + 
-							graph.getDirectEdge(sourceCity, targetCity) + " a " + distance);
+							graph.getDirectEdge(sourceCity, targetCity) + " Km a " + distance + " Km");
 						}
 					} else {
 						System.out.println("\nSe elimino la ruta!");
