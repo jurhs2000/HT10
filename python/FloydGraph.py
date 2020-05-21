@@ -54,4 +54,9 @@ def getMinEdge(sourceVertex, targetVertex):
 
 # La funcion center de networkx retorna varios nodos centrales
 def getCenter():
-    print(nx.center(graph))
+    excentricities = []
+    for posibleCenter in nx.betweenness_centrality(graph):
+        excentricities.append(nx.betweenness_centrality(graph).get(posibleCenter))
+    for posibleCenter in nx.betweenness_centrality(graph):
+        if (nx.betweenness_centrality(graph).get(posibleCenter) == max(excentricities)):
+            print(posibleCenter)
