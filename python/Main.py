@@ -63,7 +63,7 @@ while (option != 4):
                 print ("Ingresa un numero valido mayor a 0")
         addEdge(sourceCity, targetCity, distance)
     if (option == 3):
-        print("Las ciudades que estan al centro es:")
+        print("Las ciudades que estan al centro son:")
         getCenter()
 
 if (option == 4):
